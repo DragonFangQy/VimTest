@@ -40,6 +40,50 @@
 # 撤销  u  命令模式
 # 恢复  Ctrl + r  命令模式
 
-# 显示行号  :set nu  末行模式
+
+"""
+构建 command 对象
+    directive
+    detail
+    means
+    category
+
+构建 command_list 列表
+
+随机 n 个 command 对象
+    将对象的 detail 输出到文件
+    分割
+    将对象的 detail 和 directive 输出到文件
+
+"""
+from vim_test.vim_command import VimCommand
 
 
+class VimTest(object):
+    """
+    vim test class
+
+    """
+
+    def __init__(self):
+        self._command_list = []
+
+    def add_command(self, vim_command: object):
+        self._command_list.append(vim_command)
+
+
+if __name__ == '__main__':
+
+    """
+    
+    # 文档操作
+    # 显示行号  :set nu  末行模式
+    # 保存并退出  :wq  末行模式
+    # 保存并退出  :x  末行模式
+    """
+    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
+    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
+    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
+    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
+
+    pass
