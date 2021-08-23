@@ -15,7 +15,7 @@ class VimCommand(object):
 
     """
 
-    def __init__(self, keys, model, detail, category):
+    def __init__(self, category, detail, keys, model):
         """
 
         :param keys: 指令/命令

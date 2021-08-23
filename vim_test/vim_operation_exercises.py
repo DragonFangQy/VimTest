@@ -59,7 +59,7 @@
 from vim_test.vim_command import VimCommand
 
 
-class VimTest(object):
+class VimOperationExercises(object):
     """
     vim test class
 
@@ -71,19 +71,30 @@ class VimTest(object):
     def add_command(self, vim_command: object):
         self._command_list.append(vim_command)
 
+    def random_vim_command(self, num: int):
+        """
+        随机 n 个 command 对象
+
+        :param num:
+        :return:
+        """
+        pass
+
 
 if __name__ == '__main__':
+    # 文档操作,显示行号,:set nu,末行模式
 
-    """
-    
-    # 文档操作
-    # 显示行号  :set nu  末行模式
-    # 保存并退出  :wq  末行模式
-    # 保存并退出  :x  末行模式
-    """
-    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
-    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
-    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
-    vim_com_001 = VimCommand(keys=":set nu",model="末行模式",detail="显示行号",category="文档操作")
+    # 读取文件,构建 command_list 列表
 
-    pass
+    vim_test = VimOperationExercises()
+
+    with open("./vim_command.text", "r", encoding="utf8") as rf:
+        while True:
+            read_line = rf.readline().strip()
+            if len(read_line) <= 0:
+                break
+            vim_command = VimCommand(*(read_line.split(";;")))
+            vim_test.add_command(vim_command)
+
+    print(vim_test)
+    print(vim_test)
