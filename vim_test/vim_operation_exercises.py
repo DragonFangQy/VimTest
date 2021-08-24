@@ -56,6 +56,8 @@
     将对象的 detail 和 directive 输出到文件
 
 """
+import random
+
 from vim_test.vim_command import VimCommand
 
 
@@ -71,14 +73,104 @@ class VimOperationExercises(object):
     def add_command(self, vim_command: object):
         self._command_list.append(vim_command)
 
-    def random_vim_command(self, num: int):
+    def random_vim_command(self, num: int, category: int = -1):
         """
         随机 n 个 command 对象
 
-        :param num:
+        分类:
+
+            -1 不分类
+            0 文档操作
+            1 光标移动
+            2 翻页
+            3 复制粘贴
+            4 查找替换
+            5 撤销恢复
+        :param category: 分类
+        :param num: 输出个数
         :return:
         """
-        pass
+        category_list = ["文档操作", "光标移动", "翻页", "复制粘贴", "查找替换", "撤销恢复"]
+
+        # 获得 command_list_ , 用于后续处理
+        command_list_ = self._command_list
+
+        """
+        处理分类
+        """
+        if category != -1:
+            command_list_ = []
+
+            # 获取分类
+            category_ = category_list[category]
+
+            for obj_ in self._command_list:  # type:VimCommand
+
+                # 判断分类是否相等
+                if obj_.category == category_:
+                    command_list_.append(obj_)
+
+        # 调整 num
+        if num > len(command_list_):
+            num = len(command_list_)
+
+        """
+        随机 n 个 command 对象
+        """
+        # 存储结果
+        result_command = []
+
+        # 随机 n 个 command 对象
+        for index_ in range(num):
+            # 随机索引
+            rand_int = random.randint(0, len(command_list_))
+
+            # 获取索引对应的对象
+            command_obj = command_list_[:][rand_int]
+
+            # 加入结果集
+            result_command.append(command_obj)
+
+            # 从数据源移除对象
+            command_list_.remove(command_obj)
+
+        """
+        将 result_command 写入文件 
+        
+        描述
+        分割
+        描述
+        命令  
+        """
+
+        with open("OperationExercises.md", "w") as wf:
+
+            # 操作行数
+            command_line = random.randint(1, 20)
+
+            # 写入描述
+            for command_obj in result_command:  # type:VimCommand
+
+                if "n_" in command_obj.keys:
+                    command_obj.keys = command_obj.keys.replace("n_", str(command_line))
+                    command_obj.detail = command_obj.detail.replace("n", str(command_line))
+
+                wf.write("#" * 3 + " " + command_obj.detail)
+                wf.write("\n")
+
+            # 写入分割
+            wf.write("\n" * 20)
+
+            wf.write("`" * 3 + " bash\n")
+
+            # 写入 描述 & 命令
+            for command_obj in result_command:  # type:VimCommand
+                wf.write("# " + command_obj.detail)
+                wf.write("\n")
+                wf.write(command_obj.keys)
+                wf.write("\n")
+
+            wf.write("`" * 3 + " \n")
 
 
 if __name__ == '__main__':
@@ -96,5 +188,4 @@ if __name__ == '__main__':
             vim_command = VimCommand(*(read_line.split(";;")))
             vim_test.add_command(vim_command)
 
-    print(vim_test)
-    print(vim_test)
+    vim_test.random_vim_command(10)
