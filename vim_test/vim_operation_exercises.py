@@ -19,7 +19,6 @@
 # 上翻一页  Ctrl + b  命令模式
 # 下翻一页  Ctrl + f  命令模式
 # 到文件n%的位置  n_%  命令模式
-# 下翻一页  Ctrl + f  命令模式
 
 # 复制粘贴
 # 复制整行  yy or Y  命令模式
@@ -188,4 +187,4 @@ if __name__ == '__main__':
             vim_command = VimCommand(*(read_line.split(";;")))
             vim_test.add_command(vim_command)
 
-    vim_test.random_vim_command(10)
+    vim_test.random_vim_command(15)
